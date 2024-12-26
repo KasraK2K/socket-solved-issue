@@ -1,29 +1,53 @@
-# How to Use
-<br />
+## Nginx Config and Start Proccess
+&nbsp;
 
-## Step 1
+### Step 1
+
 copy `nginx.conf` into `/etc/nginx/sites-available/nginx.conf`
 For this reason you can you can run this command
+
 ```bash
 cp ./nginx.conf /etc/nginx/sites-available/nginx.conf
 ```
-<br />
+&nbsp;
 
-## Step 2
+### Step 2
+
 Link this config softly into `sites-enables`. You can use this command
+
 ```bash
 ln -S /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
 ```
-<br />
+&nbsp;
 
-## Step 3
-Run `system_ports.sh` with like this:
-```bash
-./system_ports.sh
+### Step 4
+Test nginx config with this command
+```
+nginx -t
 ```
 
-It will create `system_ports.conf` into `/etc/nginx/conf.d/system_ports.conf` path.
+### Step 5
+Use CertBot to add certificate
+```
+certbot --nginx -d example.com
+```
 
-<i>to change path modify `CONF_FILE` environment into `system_ports.sh` file and `include` value in `nginx.conf` file</i>
+### Step 6
+Restart nginx service
+```
+systemctl restart nginx
+```
+
+### Step 7
+
+Run `socket_system_ports.sh` with like this:
+
+```bash
+./socket_system_ports.sh
+```
+
+It will create `socket_system_ports.conf` into `/etc/nginx/socket_system_ports.conf` path.
+
+<i>to change path modify `CONF_FILE` environment into `socket_system_ports.sh` file and `include` value in `nginx.conf` file</i>
 
 On the other hand this script run the backend using `PM2` and scale it then it will reload the nginx.
